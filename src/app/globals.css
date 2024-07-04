@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --max-width: 1600px;
+  --color-white-1: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* utility classes */
+.max-page-width {
+  background-color: #f6f7f8;
+  padding: 18px;
+  margin: 0 auto;
+  max-width: var(--max-width);
+}
