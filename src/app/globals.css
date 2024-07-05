@@ -22,6 +22,36 @@
   box-sizing: border-box;
 }
 
+.body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+}
+body::-webkit-scrollbar,
+.scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+body::-webkit-scrollbar-track,
+.scroll-container::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #e3e4e6;
+  border-radius: 3px;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb,
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #072635;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover,
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #e3e4e6;
+}
+
 /* utility classes */
 .max-page-width {
   background-color: #f6f7f8;

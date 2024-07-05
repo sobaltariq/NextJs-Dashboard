@@ -69,12 +69,14 @@ const UserInfo = () => {
       </div>
 
       <div className="lab-results">
-        {labResults.map((result, index) => (
-          <div key={index} className="flex justify-between content-center">
-            <p>{result}</p>
-            <Image src={downloadIcon} alt={result} height={20} width={20} />
-          </div>
-        ))}
+        <div className="scroll-container">
+          {labResults.map((result, index) => (
+            <div key={index} className="flex justify-between content-center">
+              <p>{result}</p>
+              <Image src={downloadIcon} alt={result} height={20} width={20} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
