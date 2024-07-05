@@ -8,6 +8,12 @@
   --background-end-rgb: 255, 255, 255;
   --max-width: 1600px;
   --color-white-1: #ffffff;
+
+  --color-black-1: #000000;
+  --color-black-2: #072635;
+
+  --color-secondary: #01f0d0;
+  --color-secondary-2: #f6f7f8;
 }
 
 * {
@@ -22,4 +28,18 @@
   padding: 18px;
   margin: 0 auto;
   max-width: var(--max-width);
+}
+
+.left-box,
+.right-box {
+  width: 30%;
+}
+
+.main-box {
+  width: 50%;
+}
+.main-box,
+.left-box {
+  padding: 20px;
+  border-radius: 16px;
 }

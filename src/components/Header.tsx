@@ -6,7 +6,7 @@ import img2 from "@/assets/n2.svg";
 import img3 from "@/assets/n3.svg";
 import img4 from "@/assets/n4.svg";
 import img5 from "@/assets/n5.svg";
-import img6 from "@/assets/drjose.png";
+import img6 from "@/assets/u10.png";
 import img7 from "@/assets/sett.svg";
 import img8 from "@/assets/more.svg";
 
