@@ -1,5 +1,4 @@
 import MiddleContent from "@/components/MiddleContent";
-import UserInfo from "@/components/UserInfo";
 import Image from "next/image";
 
 import searchImg from "@/assets/search.svg";
@@ -25,6 +24,15 @@ import mIcon from "@/assets/MaleIcon.svg";
 import pIcon from "@/assets/PhoneIcon.svg";
 import InIcon from "@/assets/InsuranceIcon.svg";
 import downloadIcon from "@/assets/download.svg";
+
+import RespiratoryImg from "@/assets/respiratory rate.svg";
+import TemperatureImg from "@/assets/temperature.svg";
+import HeartBPM from "@/assets/HeartBPM.svg";
+import MyChart from "@/components/MyChart";
+
+import BPMoreImg from "@/assets/expand_more.svg";
+import ArrowUp from "@/assets/ArrowUp.svg";
+import ArrowDown from "@/assets/ArrowDown.svg";
 
 const patientsList = [
   {
@@ -165,26 +173,39 @@ const labResults = [
   "Radiology Reports",
   "X-Rays",
   "Urine Test",
+  "Blood Tets",
+  "CT Scans",
+  "Radiology Reports",
+  "X-Rays",
+  "Urine Test",
 ];
+
+const labels = [
+  "Oct 2023",
+  "Nov 2023",
+  "Dec 2023",
+  "Jan 2024",
+  "Feb 2024",
+  "Mar 2024",
+];
+const systolicData = [140, 125, 168, 129, 142, 175];
+const diastolicData = [122, 72, 95, 72, 105, 78];
 
 export default function Home() {
   return (
-    <div className="flex justify-between content-start gap-8">
+    <div className="main-content-box">
       {/* left side */}
-      <div className="patient-list left-box">
+      <div className="left-box">
         <div>
-          <div className="top flex justify-between pb-10">
+          <div className="top">
             <h2>Patient</h2>
             <Image src={searchImg} alt="search" />
           </div>
 
-          <div className="scroll-container">
+          <div className="users-list">
             {patientsList.map((patient, index) => (
-              <div
-                key={index}
-                className="flex justify-between items-center py-4 px-5 cursor-pointer"
-              >
-                <div className="flex items-center gap-3">
+              <div key={index} className="inner-wrapper">
+                <div className="user">
                   <Image
                     src={patient.img}
                     alt={patient.name}
@@ -204,18 +225,125 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       {/* middle */}
-      <MiddleContent />
-
+      <div className="mid-box">
+        <div className="inner-wrapper">
+          <div className="diagnosis-history">
+            <h2>Diagnosis History</h2>
+            <div className="blood-pressure">
+              <div className="data-set">
+                <div>
+                  <p>
+                    <span className="dot-1"></span>Systolic
+                  </p>
+                  <p>160</p>
+                  <p>
+                    <Image src={ArrowUp} alt="Higher than Average" />
+                    <span>Higher than Average</span>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <span className="dot-2"></span>Diastolic
+                  </p>
+                  <p>78</p>
+                  <p>
+                    <Image src={ArrowDown} alt="Lower than Average" />
+                    <span>Lower than Average</span>
+                  </p>
+                </div>
+              </div>
+              <div className="wrapper">
+                <div className="headings">
+                  <h3>Blood Pressure</h3>
+                  <p>
+                    <span>Last 6 months</span>
+                    <Image src={BPMoreImg} alt="Blood Pressure" />
+                  </p>
+                </div>
+                <MyChart
+                  labels={labels}
+                  systolicData={systolicData}
+                  diastolicData={diastolicData}
+                />
+              </div>
+            </div>
+            <div className="health-data">
+              <div>
+                <Image src={RespiratoryImg} alt="Respiratory Rate" />
+                <p>Respiratory Rate</p>
+                <p>20 bmp</p>
+                <p>Normal</p>
+              </div>
+              <div>
+                <Image src={TemperatureImg} alt="Temperature" />
+                <p>Temperature</p>
+                <p>98.6°F</p>
+                <p>Normal</p>
+              </div>
+              <div>
+                <Image src={HeartBPM} alt="Heart Rate" />
+                <p>Heart Rate</p>
+                <p>98 bmp</p>
+                <p>Lower than Average</p>
+              </div>
+            </div>
+          </div>
+          <div className="diagnosis-list">
+            <h2>Diagnosis List</h2>
+            <ul>
+              <div>
+                <li className="diagnosis-header">
+                  <span>Problem/Diagnosis</span>
+                  <span>Description</span>
+                  <span>Status</span>
+                </li>
+              </div>
+              <div className="scroll">
+                <li className="diagnosis-item">
+                  <span>Hypertension</span>
+                  <span>Chronic high blood pressure</span>
+                  <span>Under Observation</span>
+                </li>
+                <li className="diagnosis-item">
+                  <span>Type 2 Diabetes</span>
+                  <span>Insulin resistance and elevated blood sugar</span>
+                  <span>Cured</span>
+                </li>
+                <li className="diagnosis-item">
+                  <span>Asthma</span>
+                  <span>Recurrent episodes of bronchial constriction</span>
+                  <span>Inactive</span>
+                </li>
+                <li className="diagnosis-item">
+                  <span>Hypertension</span>
+                  <span>Chronic high blood pressure</span>
+                  <span>Under Observation</span>
+                </li>
+                <li className="diagnosis-item">
+                  <span>Type 2 Diabetes</span>
+                  <span>Insulin resistance and elevated blood sugar</span>
+                  <span>Cured</span>
+                </li>
+                <li className="diagnosis-item">
+                  <span>Asthma</span>
+                  <span>Recurrent episodes of bronchial constriction</span>
+                  <span>Inactive</span>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
       {/* right side */}
-      <div className="right-box">
-        <div className="user-info mb-8">
+
+      {/* <div className="right-box">
+        <div className="user-info">
           <div className="img">
             <Image src={imgU1} alt="Ryan Johnson" height={200} width={200} />
-            <p>Ryan Johnson</p>
+            <h2>Ryan Johnson</h2>
           </div>
-          <div className="user-profile py-8">
+          <div className="user-profile">
             <div>
               <Image src={dobIcon} alt="Date Of Birth" />
               <div>
@@ -259,16 +387,18 @@ export default function Home() {
         </div>
 
         <div className="lab-results">
-          <div className="scroll-container">
+          <div className="tests">
             {labResults.map((result, index) => (
-              <div key={index} className="flex justify-between content-center">
+              <div key={index} className="">
                 <p>{result}</p>
                 <Image src={downloadIcon} alt={result} height={20} width={20} />
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
+
+      <MiddleContent />
     </div>
   );
 }

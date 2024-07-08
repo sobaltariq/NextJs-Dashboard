@@ -50,7 +50,7 @@ const Header: React.FC = () => {
             <p>General Practitioner</p>
           </div>
 
-          <Image src={img7} alt="" className="ml-4 mr-3 img" />
+          <Image src={img7} alt="" className="" />
           <Image src={img8} alt="" className="img" />
         </div>
       </header>

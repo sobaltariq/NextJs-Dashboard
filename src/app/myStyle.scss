@@ -1,33 +1,108 @@
-@import "./globals.css";
+// Variables
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 
-// header
-header {
+  --max-width: 1600px;
+  --max-height: 995px;
+
+  --color-white-1: #ffffff;
+  --color-black-1: #000000;
+  --color-black-2: #072635;
+
+  --color-secondary: #01f0d0;
+  --color-secondary-2: #f6f7f8;
+
+  --color-mix-1: #e0f3fa;
+  --color-mix-2: #ffe6e9;
+  --color-mix-3: #ffe6f1;
+}
+
+// Mixins
+@mixin flex-center($justify: center, $align: center) {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin my-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #e3e4e6;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #072635;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #072635;
+  }
+}
+
+// Utility classes
+.max-page-width {
+  background-color: var(--color-secondary-2);
+  padding: 18px;
+  margin: 0 auto;
+  max-width: var(--max-width);
+  max-height: var(--max-height);
+}
+
+// Global styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+
+  @include my-scrollbar;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+// Header styles
+header {
+  @include flex-center(space-between, center);
   padding: 12px 32px;
   background-color: var(--color-white-1);
   border-radius: 70px;
 
   nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-center(space-between, center);
     gap: 24px;
 
     a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include flex-center(center, center);
       gap: 9px;
       padding: 11px 16px;
-      //   color: var(--color-black-2)
+      color: var(--color-black-2);
+      font-weight: 600;
 
       img {
         height: 20px;
         width: 20px;
       }
     }
+
     .active {
       border-radius: 25px;
       background-color: var(--color-secondary);
@@ -35,14 +110,18 @@ header {
   }
 
   .user {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center(center, center);
 
     .user-name {
       margin-right: 25px;
       margin-left: 8px;
+      p {
+        &:first-child {
+          font-weight: 600;
+        }
+      }
     }
+
     .img {
       height: 20px;
       width: 20px;
@@ -51,82 +130,290 @@ header {
   }
 }
 
-.patient-list {
-  div {
-    .top {
-      img {
-        height: 18px;
-        width: 18px;
-      }
-    }
-
-    .scroll-container {
-      overflow-y: auto;
-      overflow-x: hidden;
-      height: 100vh;
-    }
-  }
+// Box styles
+%box {
+  padding: 20px;
+  border-radius: 16px;
 }
 
+.left-box,
 .right-box {
-  padding: 0;
-  .user-info {
+  width: 25%;
+  @extend %box;
+}
+
+.mid-box {
+  width: 50%;
+}
+.diagnosis-history,
+.diagnosis-list {
+  @extend %box;
+}
+
+// Patient list styles
+.main-content-box {
+  @include flex-center(space-between, flex-start);
+  gap: 32px;
+  .left-box {
     background-color: var(--color-white-1);
-    padding: 32px 20px;
-    border-radius: 16px;
 
-    .img {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .user-profile {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-
-      div {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 16px;
-
+    div {
+      .top {
+        @include flex-center(space-between, center);
+        padding-bottom: 40px;
         img {
-          height: 42px;
-          width: 42px;
-        }
-
-        div {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content: flex-start;
-          gap: 4px;
+          height: 18px;
+          width: 18px;
         }
       }
-    }
 
-    .show-btn {
-      padding: 11px 40px;
+      .users-list {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 850px;
+        margin: 0 -20px;
+        @include my-scrollbar;
 
-      button {
-        padding: 11px 40px;
-        border-radius: 40px;
-        background-color: var(--color-secondary);
+        .inner-wrapper {
+          @include flex-center(space-between, center);
+          padding: 16px 20px;
+
+          &:first-child {
+            background-color: #d8fcf7;
+          }
+
+          .user {
+            @include flex-center(center, center);
+            gap: 12px;
+            cursor: pointer;
+
+            div {
+              @include flex-center(flex-start, flex-start);
+              flex-direction: column;
+              gap: 4px;
+
+              p {
+                font-weight: 600;
+              }
+            }
+          }
+
+          img {
+            cursor: pointer;
+          }
+        }
       }
     }
   }
 
-  .lab-results {
-    padding: 20px;
-    border-radius: 16px;
-    background-color: var(--color-white-1);
-    .scroll-container {
-      height: 25px;
-      div {
-        padding: 10px 16px;
+  // Right box specific styles
+  .right-box {
+    padding: 0;
+
+    .user-info {
+      background-color: var(--color-white-1);
+      padding: 32px 20px;
+      border-radius: 16px;
+
+      .img {
+        @include flex-center(center, center);
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .user-profile {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding: 32px 0;
+
+        div {
+          @include flex-center(flex-start, center);
+          gap: 16px;
+
+          img {
+            height: 42px;
+            width: 42px;
+          }
+
+          div {
+            @include flex-center(flex-start, flex-start);
+            flex-direction: column;
+            gap: 4px;
+          }
+        }
+      }
+
+      .show-btn {
+        @include flex-center(center, center);
+        padding: 11px 40px 0;
+
+        button {
+          font-weight: bold;
+          cursor: pointer;
+          padding: 11px 40px;
+          border-radius: 40px;
+          background-color: var(--color-secondary);
+        }
+      }
+    }
+
+    .lab-results {
+      @extend %box;
+      margin-top: 32px;
+      background-color: var(--color-white-1);
+
+      .tests {
+        @include my-scrollbar;
+        max-height: 210px;
+        overflow-y: auto;
+
+        div {
+          @include flex-center(space-between, center);
+          padding: 10px 16px;
+        }
+      }
+    }
+  }
+
+  // middle content
+  .mid-box {
+    .inner-wrapper {
+      .diagnosis-history {
+        background-color: var(--color-white-1);
+
+        .blood-pressure {
+          display: grid;
+          grid-template-columns: 3fr 1fr;
+          gap: 20px;
+          padding: 16px;
+          border-radius: 12px;
+          background-color: var(--color-secondary-2);
+
+          .data-set {
+            div {
+              &:first-child {
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--color-mix-1);
+              }
+              &:last-child {
+                padding-top: 10px;
+              }
+              p {
+                &:nth-child(2) {
+                  font-size: 22px;
+                  font-weight: bold;
+                  padding: 8px 0;
+                }
+
+                &:last-child {
+                  @include flex-center(space-between, center);
+                  gap: 5px;
+                }
+
+                span.dot-1 {
+                  display: inline-block;
+                  height: 10px;
+                  width: 10px;
+                  background-color: #e66fd2;
+                  border-radius: 50%;
+                  margin-right: 5px;
+                }
+                span.dot-2 {
+                  display: inline-block;
+                  height: 10px;
+                  width: 10px;
+                  background-color: #8c6fe6;
+                  border-radius: 50%;
+                  margin-right: 5px;
+                }
+              }
+            }
+          }
+
+          .wrapper {
+            order: -1;
+            .headings {
+              @include flex-center(space-between, center);
+
+              p {
+                img {
+                  margin-left: 0.5rem;
+                }
+              }
+            }
+          }
+        }
+        .health-data {
+          @include flex-center(space-between, center);
+          gap: 20px;
+          margin-top: 20px;
+
+          div {
+            width: 100%;
+            border-radius: 12px;
+            padding: 16px;
+
+            img {
+              margin-bottom: 16px;
+            }
+            p {
+              &:nth-child(3) {
+                font-size: 24px;
+                padding-bottom: 16px;
+                font-weight: bold;
+              }
+            }
+
+            &:first-child {
+              background-color: var(--color-mix-1);
+            }
+            &:nth-child(2) {
+              background-color: var(--color-mix-2);
+            }
+            &:nth-child(3) {
+              background-color: var(--color-mix-3);
+            }
+          }
+        }
+      }
+
+      .diagnosis-list {
+        background-color: var(--color-white-1);
+        margin-top: 32px;
+
+        h2 {
+          margin-bottom: 20px;
+        }
+
+        ul {
+          list-style-type: none;
+          padding: 0;
+
+          .scroll {
+            max-height: 150px;
+            overflow-y: auto;
+            @include my-scrollbar();
+          }
+
+          li {
+            padding: 16px;
+            display: grid;
+            grid-template-columns: 4fr 9fr 3fr;
+            gap: 20px;
+
+            span {
+              display: inline-block;
+              width: 100%;
+            }
+          }
+          .diagnosis-header {
+            font-weight: bold;
+            background-color: var(--color-secondary-2);
+            border-radius: 25px;
+            margin-bottom: 12px;
+          }
+        }
       }
     }
   }
