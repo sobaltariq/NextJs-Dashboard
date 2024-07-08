@@ -170,7 +170,7 @@ header {
       .users-list {
         overflow-y: auto;
         overflow-x: hidden;
-        height: 850px;
+        height: 848px;
         margin: 0 -20px;
         @include my-scrollbar;
 
@@ -178,7 +178,7 @@ header {
           @include flex-center(space-between, center);
           padding: 16px 20px;
 
-          &:first-child {
+          &[data-is-active="true"] {
             background-color: #d8fcf7;
           }
 
@@ -307,7 +307,7 @@ header {
                 }
 
                 &:last-child {
-                  @include flex-center(space-between, center);
+                  @include flex-center(flex-start, center);
                   gap: 5px;
                 }
 

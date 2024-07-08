@@ -1,8 +1,14 @@
 "use client";
-import React, { useRef, useEffect } from "react";
-import Chart from "chart.js/auto"; // Import all Chart.js elements
+import React, { useRef, useEffect, useState } from "react";
+import Chart from "chart.js/auto";
 
-const MyChart = ({ labels, systolicData, diastolicData }) => {
+const MyChart = ({
+  labels,
+  systolicData,
+  diastolicData,
+  setSelectedEntry,
+  userData,
+}) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -51,11 +57,23 @@ const MyChart = ({ labels, systolicData, diastolicData }) => {
             },
           },
         },
+        onClick: (event, elements, chart) => {
+          if (elements[0]) {
+            const i = elements[0].index;
+            const selectedData = userData.diagnosis_history[i];
+            setSelectedEntry(selectedData);
+
+            // alert(
+            //   chart.data.labels[i]
+            //   // chart.data.labels[i].split(" ")[2]
+            // );
+          }
+        },
       },
     });
 
     return () => bloodPressureChart.destroy(); // Cleanup chart on unmount
-  }, [labels, systolicData, diastolicData]);
+  }, [labels, systolicData, diastolicData, setSelectedEntry]);
 
   return <canvas ref={canvasRef} />;
 };

@@ -1,22 +1,8 @@
-import MiddleContent from "@/components/MiddleContent";
+"use client";
 import Image from "next/image";
 
 import searchImg from "@/assets/search.svg";
 import moreImg from "@/assets/more_horiz.svg";
-
-import imgU1 from "@/assets/u1.png";
-import imgU2 from "@/assets/u2.png";
-import imgU3 from "@/assets/u3.png";
-import imgU4 from "@/assets/u4.png";
-import imgU5 from "@/assets/u5.png";
-import imgU6 from "@/assets/u6.png";
-import imgU7 from "@/assets/u7.png";
-import imgU8 from "@/assets/u8.png";
-import imgU9 from "@/assets/u9.png";
-import imgU10 from "@/assets/u10.png";
-import imgU11 from "@/assets/u11.png";
-import imgU12 from "@/assets/u12.png";
-import imgU13 from "@/assets/u13.png";
 
 import dobIcon from "@/assets/BirthIcon.svg";
 import fIcon from "@/assets/FemaleIcon.svg";
@@ -33,165 +19,118 @@ import MyChart from "@/components/MyChart";
 import BPMoreImg from "@/assets/expand_more.svg";
 import ArrowUp from "@/assets/ArrowUp.svg";
 import ArrowDown from "@/assets/ArrowDown.svg";
+import React, { useEffect, useState } from "react";
 
-const patientsList = [
-  {
-    name: "Ryan Johnson",
-    gender: "Male",
-    age: 38,
-    img: imgU1,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Emily Williams",
-    gender: "Female",
-    age: 29,
-    img: imgU2,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Michael Miller",
-    gender: "Male",
-    age: 34,
-    img: imgU3,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Peter Johnson",
-    gender: "Male",
-    age: 45,
-    img: imgU4,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "David Wilson",
-    gender: "Male",
-    age: 22,
-    img: imgU5,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Jane Smith",
-    gender: "Female",
-    age: 55,
-    img: imgU6,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Paul Lewis",
-    gender: "Male",
-    age: 60,
-    img: imgU7,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Lucy Brown",
-    gender: "Female",
-    age: 28,
-    img: imgU8,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "James Anderson",
-    gender: "Male",
-    age: 27,
-    img: imgU9,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Emma Thomas",
-    gender: "Female",
-    age: 19,
-    img: imgU10,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Sophia Martinez",
-    gender: "Female",
-    age: 49,
-    img: imgU11,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Patricia Moore",
-    gender: "Male",
-    age: 43,
-    img: imgU12,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-  {
-    name: "Christopher Taylor",
-    gender: "Male",
-    age: 30,
-    img: imgU13,
-    dob: "August 23, 1996",
-    con: "(415) 555-1234",
-    econ: "(415) 555-1234",
-    ins: "Sunrise Health Assurance",
-  },
-];
+interface DiagnosisHistoryEntry {
+  month: string;
+  year: number;
+  blood_pressure: {
+    systolic: {
+      value: number;
+      levels: string;
+    };
+    diastolic: {
+      value: number;
+      levels: string;
+    };
+  };
+  heart_rate: {
+    value: number;
+    levels: string;
+  };
+  respiratory_rate: {
+    value: number;
+    levels: string;
+  };
+  temperature: {
+    value: number;
+    levels: string;
+  };
+}
 
-const labResults = [
-  "Blood Tets",
-  "CT Scans",
-  "Radiology Reports",
-  "X-Rays",
-  "Urine Test",
-  "Blood Tets",
-  "CT Scans",
-  "Radiology Reports",
-  "X-Rays",
-  "Urine Test",
-];
+interface Diagnosis {
+  name: string;
+  description: string;
+  status: string;
+}
 
-const labels = [
-  "Oct 2023",
-  "Nov 2023",
-  "Dec 2023",
-  "Jan 2024",
-  "Feb 2024",
-  "Mar 2024",
-];
-const systolicData = [140, 125, 168, 129, 142, 175];
-const diastolicData = [122, 72, 95, 72, 105, 78];
+interface Patient {
+  name: string;
+  gender: string;
+  age: number;
+  profile_picture: string;
+  date_of_birth: string;
+  phone_number: string;
+  emergency_contact: string;
+  insurance_type: string;
+  diagnosis_history: DiagnosisHistoryEntry[];
+  diagnostic_list: Diagnosis[];
+  lab_results: string[];
+}
 
-export default function Home() {
+const Home: React.FC = () => {
+  const [userData, setUserData] = useState<Patient[] | []>([]);
+  const [labels, setLabels] = useState<string[]>([]);
+  const [systolicData, setSystolicData] = useState<number[]>([]);
+  const [diastolicData, setDiastolicData] = useState<number[]>([]);
+
+  const [selectedEntry, setSelectedEntry] = useState<DiagnosisHistoryEntry>();
+
+  const fetchData = async (): Promise<Patient[]> => {
+    const response = await fetch(
+      "https://fedskillstest.coalitiontechnologies.workers.dev",
+      {
+        headers: {
+          Authorization: "Basic " + btoa("coalition:skills-test"),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    return response.json();
+  };
+
+  useEffect(() => {
+    fetchData()
+      .then((data) => {
+        setUserData(data);
+
+        console.log(data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  useEffect(() => {
+    if (userData.length > 0) {
+      const patient = userData[3];
+
+      const newLabels = patient.diagnosis_history.map(
+        (entry) => `${entry.month} ${entry.year}`
+      );
+      setLabels(newLabels);
+
+      const newSystolicData = patient.diagnosis_history.map(
+        (entry) => entry.blood_pressure.systolic.value
+      );
+      setSystolicData(newSystolicData);
+
+      const newDiastolicData = patient.diagnosis_history.map(
+        (entry) => entry.blood_pressure.diastolic.value
+      );
+      setDiastolicData(newDiastolicData);
+
+      setSelectedEntry(patient.diagnosis_history[0]);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    console.log(selectedEntry);
+  }, []);
+
   return (
     <div className="main-content-box">
       {/* left side */}
@@ -203,11 +142,17 @@ export default function Home() {
           </div>
 
           <div className="users-list">
-            {patientsList.map((patient, index) => (
-              <div key={index} className="inner-wrapper">
+            {userData.map((patient, index) => (
+              <div
+                key={index}
+                className="inner-wrapper"
+                data-is-active={
+                  patient.name === "Jessica Taylor" ? true : false
+                }
+              >
                 <div className="user">
                   <Image
-                    src={patient.img}
+                    src={patient?.profile_picture}
                     alt={patient.name}
                     height={48}
                     width={48}
@@ -236,20 +181,22 @@ export default function Home() {
                   <p>
                     <span className="dot-1"></span>Systolic
                   </p>
-                  <p>160</p>
+                  <p>{selectedEntry?.blood_pressure.systolic.value}</p>
                   <p>
                     <Image src={ArrowUp} alt="Higher than Average" />
-                    <span>Higher than Average</span>
+                    <span>{selectedEntry?.blood_pressure.systolic.levels}</span>
                   </p>
                 </div>
                 <div>
                   <p>
                     <span className="dot-2"></span>Diastolic
                   </p>
-                  <p>78</p>
+                  <p>{selectedEntry?.blood_pressure.diastolic.value}</p>
                   <p>
                     <Image src={ArrowDown} alt="Lower than Average" />
-                    <span>Lower than Average</span>
+                    <span>
+                      {selectedEntry?.blood_pressure.diastolic.levels}
+                    </span>
                   </p>
                 </div>
               </div>
@@ -265,27 +212,30 @@ export default function Home() {
                   labels={labels}
                   systolicData={systolicData}
                   diastolicData={diastolicData}
+                  setSelectedEntry={setSelectedEntry}
+                  userData={userData[3]}
                 />
               </div>
             </div>
+
             <div className="health-data">
               <div>
                 <Image src={RespiratoryImg} alt="Respiratory Rate" />
                 <p>Respiratory Rate</p>
-                <p>20 bmp</p>
-                <p>Normal</p>
+                <p>{selectedEntry?.respiratory_rate.value} bmp</p>
+                <p>{selectedEntry?.respiratory_rate.levels}</p>
               </div>
               <div>
                 <Image src={TemperatureImg} alt="Temperature" />
                 <p>Temperature</p>
-                <p>98.6°F</p>
-                <p>Normal</p>
+                <p>{selectedEntry?.temperature.value}° F</p>
+                <p>{selectedEntry?.temperature.levels}</p>
               </div>
               <div>
                 <Image src={HeartBPM} alt="Heart Rate" />
                 <p>Heart Rate</p>
-                <p>98 bmp</p>
-                <p>Lower than Average</p>
+                <p>{selectedEntry?.heart_rate.value} bmp</p>
+                <p>{selectedEntry?.heart_rate.levels}</p>
               </div>
             </div>
           </div>
@@ -300,36 +250,15 @@ export default function Home() {
                 </li>
               </div>
               <div className="scroll">
-                <li className="diagnosis-item">
-                  <span>Hypertension</span>
-                  <span>Chronic high blood pressure</span>
-                  <span>Under Observation</span>
-                </li>
-                <li className="diagnosis-item">
-                  <span>Type 2 Diabetes</span>
-                  <span>Insulin resistance and elevated blood sugar</span>
-                  <span>Cured</span>
-                </li>
-                <li className="diagnosis-item">
-                  <span>Asthma</span>
-                  <span>Recurrent episodes of bronchial constriction</span>
-                  <span>Inactive</span>
-                </li>
-                <li className="diagnosis-item">
-                  <span>Hypertension</span>
-                  <span>Chronic high blood pressure</span>
-                  <span>Under Observation</span>
-                </li>
-                <li className="diagnosis-item">
-                  <span>Type 2 Diabetes</span>
-                  <span>Insulin resistance and elevated blood sugar</span>
-                  <span>Cured</span>
-                </li>
-                <li className="diagnosis-item">
-                  <span>Asthma</span>
-                  <span>Recurrent episodes of bronchial constriction</span>
-                  <span>Inactive</span>
-                </li>
+                {userData[3]?.diagnostic_list.map((diag, i) => {
+                  return (
+                    <li key={i} className="diagnosis-item">
+                      <span>{diag.name}</span>
+                      <span>{diag.description}</span>
+                      <span>{diag.status}</span>
+                    </li>
+                  );
+                })}
               </div>
             </ul>
           </div>
@@ -337,11 +266,19 @@ export default function Home() {
       </div>
       {/* right side */}
 
-      {/* <div className="right-box">
+      <div className="right-box">
         <div className="user-info">
           <div className="img">
-            <Image src={imgU1} alt="Ryan Johnson" height={200} width={200} />
-            <h2>Ryan Johnson</h2>
+            {userData && userData[3]?.profile_picture && userData[3]?.name && (
+              <Image
+                src={userData[3]?.profile_picture}
+                alt={userData[3]?.name}
+                height={200}
+                width={200}
+                priority
+              />
+            )}
+            <h2>{userData[3]?.name}</h2>
           </div>
           <div className="user-profile">
             <div>
@@ -349,7 +286,7 @@ export default function Home() {
               <div>
                 <p>Date Of Birth</p>
                 <p>
-                  <strong>Aug 23, 1996</strong>
+                  <strong>{userData[3]?.date_of_birth}</strong>
                 </p>
               </div>
             </div>
@@ -358,7 +295,7 @@ export default function Home() {
               <div>
                 <p>Gender</p>
                 <p>
-                  <strong>Female</strong>
+                  <strong>{userData[3]?.gender}</strong>
                 </p>
               </div>
             </div>
@@ -367,7 +304,7 @@ export default function Home() {
               <div>
                 <p>Contact Info.</p>
                 <p>
-                  <strong>(415) 555-1234</strong>
+                  <strong>{userData[3]?.phone_number}</strong>
                 </p>
               </div>
             </div>
@@ -376,7 +313,7 @@ export default function Home() {
               <div>
                 <p>Insurance Provider</p>
                 <p>
-                  <strong>Sunrise Health Assurance</strong>
+                  <strong>{userData[3]?.insurance_type}</strong>
                 </p>
               </div>
             </div>
@@ -388,7 +325,7 @@ export default function Home() {
 
         <div className="lab-results">
           <div className="tests">
-            {labResults.map((result, index) => (
+            {userData[3]?.lab_results.map((result, index) => (
               <div key={index} className="">
                 <p>{result}</p>
                 <Image src={downloadIcon} alt={result} height={20} width={20} />
@@ -396,9 +333,9 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </div> */}
-
-      <MiddleContent />
+      </div>
     </div>
   );
-}
+};
+
+export default Home;
